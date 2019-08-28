@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GenericResponse {
 
-    private String success;
+    private boolean success;
 
 }
