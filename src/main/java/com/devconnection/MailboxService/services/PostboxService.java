@@ -9,4 +9,6 @@ public interface PostboxService {
     void sendMailMessage(SendMailMessage sendMailMessage);
 
     boolean deleteMail(DeleteMailMessage deleteMailMessage);
+
+    void createPostbox(GenericMessage genericMessage);
 }

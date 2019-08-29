@@ -84,4 +84,9 @@ public class PostboxServiceImpl implements PostboxService {
 
         return updateResult.getModifiedCount() == 1;
     }
+
+    @Override
+    public void createPostbox(GenericMessage genericMessage) {
+        postboxRepository.insert(new Postbox(genericMessage.getEmail()));
+    }
 }
