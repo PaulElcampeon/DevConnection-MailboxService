@@ -12,11 +12,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @SpringBootTest(classes = {PostboxServiceApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class PostboxServiceIT {
 
@@ -52,7 +55,6 @@ public class PostboxServiceIT {
         SendMailMessage message = new SendMailMessage();
         message.setContent("Hello");
         message.setEmail(postboxOwner);
-        message.setTimeSent(1l);
         message.setSender("james@live.co.uk");
 
         postboxService.sendMailMessage(message);
@@ -72,13 +74,11 @@ public class PostboxServiceIT {
         SendMailMessage produceNewMail = new SendMailMessage();
         produceNewMail.setContent("Hello");
         produceNewMail.setEmail(postboxOwner);
-        produceNewMail.setTimeSent(1l);
         produceNewMail.setSender("james@live.co.uk");
 
         SendMailMessage addToExistingMail = new SendMailMessage();
         addToExistingMail.setContent("Bye bye");
         addToExistingMail.setEmail(postboxOwner);
-        addToExistingMail.setTimeSent(1l);
         addToExistingMail.setSender("james@live.co.uk");
 
         postboxService.sendMailMessage(produceNewMail);
@@ -99,13 +99,11 @@ public class PostboxServiceIT {
         SendMailMessage produceNewMail1 = new SendMailMessage();
         produceNewMail1.setContent("Hello");
         produceNewMail1.setEmail(postboxOwner);
-        produceNewMail1.setTimeSent(1l);
         produceNewMail1.setSender("james@live.co.uk");
 
         SendMailMessage produceNewMail2 = new SendMailMessage();
         produceNewMail2.setContent("Bye bye");
         produceNewMail2.setEmail(postboxOwner);
-        produceNewMail2.setTimeSent(1l);
         produceNewMail2.setSender("david@live.co.uk");
 
         postboxService.sendMailMessage(produceNewMail1);
@@ -121,13 +119,11 @@ public class PostboxServiceIT {
         SendMailMessage produceNewMail1 = new SendMailMessage();
         produceNewMail1.setContent("Hello");
         produceNewMail1.setEmail(postboxOwner);
-        produceNewMail1.setTimeSent(1l);
         produceNewMail1.setSender("james@live.co.uk");
 
         SendMailMessage produceNewMail2 = new SendMailMessage();
         produceNewMail2.setContent("Bye bye");
         produceNewMail2.setEmail(postboxOwner);
-        produceNewMail2.setTimeSent(1l);
         produceNewMail2.setSender("david@live.co.uk");
 
         postboxService.sendMailMessage(produceNewMail1);

@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.devconnection.MailboxService.domain.Mail;
@@ -25,6 +27,7 @@ import com.devconnection.MailboxService.services.PostboxService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @SpringBootTest(classes = {PostboxServiceApplication.class}, webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PostServiceControllerTest {
 
@@ -65,7 +68,7 @@ public class PostServiceControllerTest {
     public void getPostbox() {
         GetPostboxMessage getPostboxMessage = new GetPostboxMessage(postboxOwner);
 
-        ResponseEntity<GetPostboxResponse> responseEntity = restTemplate.postForEntity(baseUrl + "postbox-service/get", getPostboxMessage, GetPostboxResponse.class);
+        ResponseEntity<GetPostboxResponse> responseEntity = restTemplate.postForEntity(baseUrl + "get", getPostboxMessage, GetPostboxResponse.class);
 
         assertEquals(postboxOwner, responseEntity.getBody().getPostbox().getEmail());
     }
@@ -78,7 +81,7 @@ public class PostServiceControllerTest {
         sendMailMessage.setEmail(postboxOwner);
         sendMailMessage.setSender(sender);
 
-        restTemplate.postForEntity(baseUrl + "postbox-service/send", sendMailMessage, String.class);
+        restTemplate.postForEntity(baseUrl + "send", sendMailMessage, String.class);
 
         assertEquals(sender, repository.findById(postboxOwner).get().getMailList().get(0).getOwner());
     }
@@ -101,7 +104,7 @@ public class PostServiceControllerTest {
         deleteMailMessage.setEmail(postboxOwner);
         deleteMailMessage.setMailMessageOwner(sender);
 
-        restTemplate.postForEntity(baseUrl + "postbox-service/delete", deleteMailMessage, String.class);
+        restTemplate.postForEntity(baseUrl + "delete", deleteMailMessage, String.class);
 
         assertEquals(0, repository.findById(postboxOwner).get().getMailList().size());
 
