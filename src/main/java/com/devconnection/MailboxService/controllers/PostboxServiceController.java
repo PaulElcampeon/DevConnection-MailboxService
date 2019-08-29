@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devconnection.MailboxService.messages.DeleteMailMessage;
+import com.devconnection.MailboxService.messages.GenericMessage;
 import com.devconnection.MailboxService.messages.GenericResponse;
 import com.devconnection.MailboxService.messages.GetPostboxMessage;
 import com.devconnection.MailboxService.messages.GetPostboxResponse;
@@ -23,18 +24,23 @@ public class PostboxServiceController {
         this.postboxService = postboxService;
     }
 
-    @RequestMapping(value = "/postbox-service/get", method = RequestMethod.POST)
-    GetPostboxResponse getPostbox(@RequestBody GetPostboxMessage getPostboxMessage) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public void createPostbox(@RequestBody GenericMessage genericMessage) {
+        postboxService.createPostbox(genericMessage);
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public GetPostboxResponse getPostbox(@RequestBody GetPostboxMessage getPostboxMessage) {
         return postboxService.getPostbox(getPostboxMessage);
     }
 
-    @RequestMapping(value = "/postbox-service/send", method = RequestMethod.POST)
+    @RequestMapping(value = "/send", method = RequestMethod.POST)
     public void sendMailMessage(@RequestBody  SendMailMessage sendMailMessage) {
         postboxService.sendMailMessage(sendMailMessage);
     }
 
-    @RequestMapping(value = "/postbox-service/delete", method = RequestMethod.POST)
-    GenericResponse deleteMail(@RequestBody  DeleteMailMessage deleteMailMessage) {
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public GenericResponse deleteMail(@RequestBody  DeleteMailMessage deleteMailMessage) {
         return new GenericResponse(postboxService.deleteMail(deleteMailMessage));
     }
 }
