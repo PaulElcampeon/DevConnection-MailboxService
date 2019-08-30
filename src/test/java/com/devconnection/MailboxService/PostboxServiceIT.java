@@ -1,11 +1,7 @@
 package com.devconnection.MailboxService;
 
-import com.devconnection.MailboxService.domain.Mail;
-import com.devconnection.MailboxService.domain.MailContent;
-import com.devconnection.MailboxService.domain.Postbox;
-import com.devconnection.MailboxService.messages.*;
-import com.devconnection.MailboxService.repositories.PostboxRepository;
-import com.devconnection.MailboxService.services.PostboxService;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +12,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import com.devconnection.MailboxService.domain.Mail;
+import com.devconnection.MailboxService.domain.MailContent;
+import com.devconnection.MailboxService.domain.Postbox;
+import com.devconnection.MailboxService.messages.DeleteMailMessage;
+import com.devconnection.MailboxService.messages.GetPostboxMessage;
+import com.devconnection.MailboxService.messages.GetPostboxResponse;
+import com.devconnection.MailboxService.messages.SendMailMessage;
+import com.devconnection.MailboxService.repositories.PostboxRepository;
+import com.devconnection.MailboxService.services.PostboxService;
 
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
